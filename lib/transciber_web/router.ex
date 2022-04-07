@@ -2,11 +2,13 @@ defmodule TransciberWeb.Router do
   use TransciberWeb, :router
 
   pipeline :api do
+    plug CORSPlug
     plug :accepts, ["json"]
   end
 
   scope "/api", TransciberWeb do
     pipe_through :api
+     post "/files", FileController, :create
      resources "/files", FileController, except: [:new, :edit]
   end
 
